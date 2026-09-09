@@ -1,0 +1,43 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    compound=true
+    node [shape=circle, width=0.5, height=0.5, fixedsize=true, fontname="Microsoft YaHei", fontsize=13]
+    edge [arrowsize=0.7, fontname="Microsoft YaHei", fontsize=11]
+
+    subgraph cluster_before {
+        label="Rebase 前"
+        style=dashed
+        color="#dc2626"
+        fontname="Microsoft YaHei"
+        fontsize=12
+        node [style=filled, fillcolor="#fecaca", color="#dc2626"]
+
+        b1 [label="A"]
+        b2 [label="B"]
+        b3 [label="C"]
+        b4 [label="D"]
+        b5 [label="E"]
+
+        b1 -> b2 -> b3
+        b1 -> b4 -> b5
+    }
+
+    subgraph cluster_after {
+        label="Rebase 后: git rebase main"
+        style=dashed
+        color="#16a34a"
+        fontname="Microsoft YaHei"
+        fontsize=12
+        node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+
+        a1 [label="A"]
+        a2 [label="B"]
+        a3 [label="C"]
+        a4 [label="D'", fillcolor="#fef9c3", color="#eab308"]
+        a5 [label="E'", fillcolor="#fef9c3", color="#eab308"]
+
+        a1 -> a2 -> a3 -> a4 -> a5
+    }
+}

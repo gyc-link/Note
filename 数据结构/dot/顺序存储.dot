@@ -1,0 +1,18 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=13, style=filled, fillcolor="#e8f0fe", color="#2563eb"]
+    edge [arrowsize=0.6]
+
+    A -> {B C}
+
+    // B的左孩子为空(索引3="-")，右孩子为D(索引4)
+    B -> Empty [label=""]
+    B -> D [label=""]
+
+    {rank=same; Empty D}
+
+    Empty [label="-" shape=none, fontname="Microsoft YaHei", fontsize=12, fontcolor="#999999"]
+    D [label="D"]
+}

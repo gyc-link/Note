@@ -1,0 +1,71 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    compound=true
+    node [shape=circle, width=0.5, height=0.5, fixedsize=true, fontname="Microsoft YaHei", fontsize=13]
+    edge [arrowsize=0.7, fontname="Microsoft YaHei", fontsize=11]
+
+    subgraph cluster_ff {
+        label="Fast-forward 合并（线性历史）"
+        style=dashed
+        color="#16a34a"
+        fontname="Microsoft YaHei"
+        fontsize=12
+        node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+
+        ff_a [label="A"]
+        ff_b [label="B", fillcolor="#fef9c3", color="#eab308"]
+        ff_c [label="C"]
+        ff_main [label="main→" shape=none fontsize=11 fontcolor="#166534"]
+        ff_feat [label="feature→" shape=none fontsize=11 fontcolor="#b45309"]
+
+        ff_a -> ff_b -> ff_c
+        ff_main -> ff_a [style=invis]
+        ff_feat -> ff_b [style=invis]
+        {rank=same; ff_main ff_a}
+        {rank=same; ff_feat ff_b}
+    }
+
+    subgraph cluster_3way {
+        label="3-way 合并（非线性历史）"
+        style=dashed
+        color="#2563eb"
+        fontname="Microsoft YaHei"
+        fontsize=12
+        node [style=filled, fillcolor="#dbeafe", color="#2563eb"]
+
+        base [label="base", fontsize=11]
+        a [label="A"]
+        b [label="B"]
+        merge_commit [label="M" shape=box style="filled,rounded" fillcolor="#f3e8ff" color="#7c3aed" fontsize=13]
+
+        base -> a
+        base -> b
+        a -> merge_commit
+        b -> merge_commit
+    }
+
+    subgraph cluster_noff {
+        label="--no-ff（强制合并提交）"
+        style=dashed
+        color="#ea580c"
+        fontname="Microsoft YaHei"
+        fontsize=12
+        node [style=filled, fillcolor="#fed7aa", color="#ea580c"]
+
+        noff_a [label="A"]
+        noff_b [label="B", fillcolor="#fef9c3", color="#eab308"]
+        noff_m [label="M" shape=box style="filled,rounded" fillcolor="#fed7aa" color="#ea580c"]
+        noff_main [label="main→" shape=none fontsize=11 fontcolor="#9a3412"]
+        noff_feat [label="feature→" shape=none fontsize=11 fontcolor="#b45309"]
+
+        noff_a -> noff_m
+        noff_a -> noff_b
+        noff_b -> noff_m
+        noff_main -> noff_a [style=invis]
+        noff_feat -> noff_b [style=invis]
+        {rank=same; noff_main noff_a}
+        {rank=same; noff_feat noff_b}
+    }
+}

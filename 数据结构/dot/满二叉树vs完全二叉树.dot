@@ -1,0 +1,18 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.6]
+
+    subgraph cluster_full {
+        label="满二叉树"; style=dashed; color="#16a34a"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+        f1->{f2 f3}; f2->{f4 f5}; f3->{f6 f7}
+    }
+    subgraph cluster_complete {
+        label="完全二叉树"; style=dashed; color="#2563eb"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#dbeafe", color="#2563eb"]
+        c1->{c2 c3}; c2->{c4 c5}; c3->c6
+    }
+}

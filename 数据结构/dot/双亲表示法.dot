@@ -1,0 +1,8 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=13, style=filled, fillcolor="#e8f0fe", color="#2563eb"]
+    edge [arrowsize=0.6]
+    A -> {B C}; B -> {D E}
+}

@@ -1,0 +1,42 @@
+digraph ExceptionHandlingRules {
+    rankdir=TB;
+    fontname="Microsoft YaHei";
+    node [fontname="Microsoft YaHei", shape=box, style="filled,rounded", fillcolor="#F9F9F9", color="#333333"];
+    edge [fontname="Microsoft YaHei", color="#555555", fontsize=10];
+
+    node [shape=diamond, style=filled, fillcolor="#E3F2FD", color="#1E88E5"];
+    is_in_try [label="异常发生在\ntry块内？"];
+    has_catch [label="该try语句有\n匹配的catch子句？"];
+    find_stack_catch [label="搜索调用栈，寻找一个带\n匹配catch子句的封装\ntry语句。找到一个？"];
+
+    node [shape=box, style="filled,rounded", fillcolor="#FFEBEE", color="#E53935"];
+    terminate [label="终止应用程序"];
+
+    node [shape=box, style="filled,rounded", fillcolor="#F1F8E9", color="#7CB342"];
+    exec_local_catch [label="执行该catch子句"];
+    exec_local_finally [label="如果有的话，执行\nfinally子句"];
+    continue_local [label="在try语句之\n后继续执行"];
+
+    prep_catch [label="准备执行该catch子句"];
+    unwind_stack [label="回到调用栈的顶端，\n沿着调用栈，执行任何\n封装的try语句的\nfinally子句，并从\n栈中弹出每个栈帧"];
+    exec_stack_catch [label="执行匹配的catch子句"];
+    exec_stack_finally [label="执行finally子句，\n如果有的话"];
+    continue_stack [label="在try语句之\n后继续执行"];
+
+    is_in_try -> has_catch [label="是"];
+    is_in_try -> find_stack_catch [label="否"];
+
+    has_catch -> exec_local_catch [label="是"];
+    has_catch -> find_stack_catch [label="否"];
+
+    exec_local_catch -> exec_local_finally;
+    exec_local_finally -> continue_local;
+
+    find_stack_catch -> terminate [label="否"];
+    find_stack_catch -> prep_catch [label="是"];
+
+    prep_catch -> unwind_stack;
+    unwind_stack -> exec_stack_catch;
+    exec_stack_catch -> exec_stack_finally;
+    exec_stack_finally -> continue_stack;
+}

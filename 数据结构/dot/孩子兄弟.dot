@@ -1,0 +1,54 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    ordering=out
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.6]
+
+    label="孩子兄弟表示法 (二叉链表)"
+    fontname="Microsoft YaHei"
+    fontsize=14
+
+    // ── 真实节点 ──
+    node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+    A [label="A"]; B [label="B"]; C [label="C"]; D [label="D"]
+    E [label="E"]; F [label="F"]; G [label="G"]
+
+    // ── 隐形占位节点 ──
+    node [style=filled, fillcolor="#ffffff00", color="#ffffff00", fontcolor="#ffffff00"]
+    i_Ans [label=""]
+    i_Efc [label=""]
+    i_Cfc [label=""]
+    i_Fns [label=""]
+
+    // ── 边（每个节点按 fc先 ns后 声明，保证 fc在左 ns在右）──
+    // A: fc=B, ns=i_Ans
+    edge [arrowhead=vee, color="#000000", fontcolor="#000000"]
+    A -> B  [label=" fc", fontsize=10]
+    edge [arrowhead=none, color="#ffffff00", fontcolor="#ffffff00"]
+    A -> i_Ans
+
+    // B: fc=E, ns=C
+    edge [arrowhead=vee, color="#000000", fontcolor="#000000"]
+    B -> E  [label=" fc", fontsize=10]
+    B -> C  [label=" ns", fontsize=10]
+
+    // E: fc=i_Efc, ns=F
+    edge [arrowhead=none, color="#ffffff00", fontcolor="#ffffff00"]
+    E -> i_Efc
+    edge [arrowhead=vee, color="#000000", fontcolor="#000000"]
+    E -> F  [label=" ns", fontsize=10]
+
+    // C: fc=i_Cfc, ns=D
+    edge [arrowhead=none, color="#ffffff00", fontcolor="#ffffff00"]
+    C -> i_Cfc
+    edge [arrowhead=vee, color="#000000", fontcolor="#000000"]
+    C -> D  [label=" ns", fontsize=10]
+
+    // F: fc=G, ns=i_Fns
+    edge [arrowhead=vee, color="#000000", fontcolor="#000000"]
+    F -> G  [label=" fc", fontsize=10]
+    edge [arrowhead=none, color="#ffffff00", fontcolor="#ffffff00"]
+    F -> i_Fns
+}

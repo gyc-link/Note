@@ -1,0 +1,19 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.8]
+
+    all [label="所有 BlockTableRecord", shape=box, style="rounded,filled", fillcolor="#e0e0e0", color="#666666"]
+
+    all -> normal
+    all -> xref
+    all -> layout
+    all -> anonymous
+
+    normal [label="普通块 (Simple Block)\n用户创建的命名块\n识别：排除下面三种", style=filled, fillcolor="#dcfce7", color="#16a34a"]
+    xref [label="外部参照块 (Xref)\n引用外部 DWG 文件\nIsFromExternalReference", style=filled, fillcolor="#fef3c7", color="#d97706"]
+    layout [label="布局块 (Layout)\n模拟纸张打印页面\nIsLayout", style=filled, fillcolor="#dbeafe", color="#2563eb"]
+    anonymous [label="匿名块 (Anonymous)\nCAD 内部自动生成\nIsAnonymous，名字 *U123", style=filled, fillcolor="#fee2e2", color="#dc2626"]
+}

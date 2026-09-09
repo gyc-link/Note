@@ -1,0 +1,21 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.6]
+
+    label="一般树"
+    fontname="Microsoft YaHei"
+    fontsize=14
+
+    node [style=filled, fillcolor="#dbeafe", color="#2563eb"]
+    edge [arrowhead=none]
+
+    A [label="A"]; B [label="B"]; C [label="C"]; D [label="D"]
+    E [label="E"]; F [label="F"]; G [label="G"]
+
+    A -> {B C D}
+    B -> {E F}
+    F -> G
+}

@@ -1,0 +1,49 @@
+digraph Motivation {
+    rankdir=LR;
+    bgcolor=transparent;
+    fontname="Sans";
+    node [fontname="Sans", fontsize=12];
+    edge [fontname="Sans", fontsize=10];
+
+    // Vertices
+    V0 [label="V0", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+    V1 [label="V1", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+    V2 [label="V2", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+    V3 [label="V3", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+
+    // Face labels
+    F0 [label="面 F0\n(ABC)", shape=plaintext, fontcolor="#1B5E20"];
+    F1 [label="面 F1\n(ACD)", shape=plaintext, fontcolor="#B71C1C"];
+
+    // Subgraph for face 0
+    subgraph cluster_F0 {
+        label="";
+        bgcolor="#E8F5E9";
+        style=dashed;
+        F0_node [label="", shape=point, width=0];
+        V0; V1; V2;
+    }
+
+    // Subgraph for face 1
+    subgraph cluster_F1 {
+        label="";
+        bgcolor="#FFEBEE";
+        style=dashed;
+        F1_node [label="", shape=point, width=0];
+        V0; V2; V3;
+    }
+
+    // Edges of Face0 (solid green)
+    V0 -> V1 [color="#2E7D32", penwidth=2.5, label="共享边"];
+    V1 -> V2 [color="#2E7D32", penwidth=1.5];
+    V2 -> V0 [color="#2E7D32", penwidth=1.5, label="共享边"];
+
+    // Edges of Face1 (solid red)
+    V0 -> V2 [color="#C62828", penwidth=2.5];
+    V2 -> V3 [color="#C62828", penwidth=1.5];
+    V3 -> V0 [color="#C62828", penwidth=1.5];
+
+    // Annotation
+    note [label="问题:\"边 V0-V1 被哪两个面共享?\"\n朴素做法: 遍历所有面的所有边 → O(n)\n半边做法: edge.Pair.Face → O(1)", shape=note, fontsize=11, fillcolor="#FFF9C4", style=filled];
+    note -> V0 [style=dotted, dir=none];
+}

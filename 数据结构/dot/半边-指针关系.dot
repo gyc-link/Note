@@ -1,0 +1,67 @@
+digraph PointerRelations {
+    rankdir=LR;
+    bgcolor=transparent;
+    fontname="Sans";
+    node [fontname="Sans", fontsize=10];
+    edge [fontname="Sans", fontsize=9];
+    splines=true;
+
+    // Vertices
+    V0 [label="V0", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.4];
+    V1 [label="V1", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.4];
+    V2 [label="V2", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.4];
+
+    // Face label (using a node for face)
+    Face0 [label="Face0\n(ABC)", shape=component, style=filled, fillcolor="#C8E6C9", width=1.0];
+
+    // Half-edges as rectangular nodes
+    he0 [label="he0\nA→B", shape=box, style=filled, fillcolor="#E8F5E9", width=0.7, height=0.5];
+    he1 [label="he1\nB→C", shape=box, style=filled, fillcolor="#E8F5E9", width=0.7, height=0.5];
+    he2 [label="he2\nC→A", shape=box, style=filled, fillcolor="#E8F5E9", width=0.7, height=0.5];
+
+    // Pair half-edges (dashed)
+    he0p [label="he0.Pair\nB→A", shape=box, style=filled, fillcolor="#FFCDD2", width=0.7, height=0.5];
+    he1p [label="he1.Pair\nC→B", shape=box, style=filled, fillcolor="#FFCDD2", width=0.7, height=0.5];
+    he2p [label="he2.Pair\nA→C", shape=box, style=filled, fillcolor="#FFCDD2", width=0.7, height=0.5];
+
+    // Face0 contains he0, he1, he2
+    Face0 -> he0 [style=dotted, color="#4CAF50", label="Edge"];
+    Face0 -> he1 [style=dotted, color="#4CAF50"];
+    Face0 -> he2 [style=dotted, color="#4CAF50"];
+
+    // Origin edges (solid, thin)
+    he0 -> V0 [color="#1565C0", penwidth=1.2, label="Origin"];
+    he1 -> V1 [color="#1565C0", penwidth=1.2, label="Origin"];
+    he2 -> V2 [color="#1565C0", penwidth=1.2, label="Origin"];
+
+    // Next edges (green, clockwise)
+    he0 -> he1 [color="#2E7D32", penwidth=2, label="Next"];
+    he1 -> he2 [color="#2E7D32", penwidth=2, label="Next"];
+    he2 -> he0 [color="#2E7D32", penwidth=2, label="Next"];
+
+    // Prev edges (orange, counterclockwise — dashed)
+    he0 -> he2 [color="#E65100", penwidth=1.5, style=dashed, label="Prev"];
+    he2 -> he1 [color="#E65100", penwidth=1.5, style=dashed, label="Prev"];
+    he1 -> he0 [color="#E65100", penwidth=1.5, style=dashed, label="Prev"];
+
+    // Pair edges (purple, bold dashed — cross to other face)
+    he0 -> he0p [color="#7B1FA2", penwidth=2.5, style="bold,dashed", label="Pair"];
+    he1 -> he1p [color="#7B1FA2", penwidth=2.5, style="bold,dashed", label="Pair"];
+    he2 -> he2p [color="#7B1FA2", penwidth=2.5, style="bold,dashed", label="Pair"];
+
+    // Legend
+    subgraph cluster_legend {
+        label="图例";
+        fontsize=11;
+        bgcolor="#FAFAFA";
+        style="rounded";
+
+        l1 [label="Next: 同面内下一条(实线绿)", shape=plaintext, fontsize=9];
+        l2 [label="Prev: 同面内上一条(虚线橙)", shape=plaintext, fontsize=9];
+        l3 [label="Pair: 跳到对侧半边(粗虚线紫)", shape=plaintext, fontsize=9];
+        l4 [label="Origin: 半边起点(细线蓝)", shape=plaintext, fontsize=9];
+        l5 [label="Face: 所属的面(点线绿)", shape=plaintext, fontsize=9];
+
+        l1 -> l2 -> l3 -> l4 -> l5 [style=invis];
+    }
+}

@@ -1,0 +1,16 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=11]
+    edge [arrowsize=0.8, fontname="Microsoft YaHei", fontsize=11]
+
+    def [label="BlockTableRecord（块定义）\n────────\n门扇几何图形\nAttributeDefinition: Tag=DOOR_NO, Prompt=\"输入门号\"\nAttributeDefinition: Tag=WIDTH, Prompt=\"输入宽度\"", fillcolor="#e8f0fe", style="filled,rounded", color="#2563eb"]
+
+    ref1 [label="BlockReference（块参照1）\n────────\n插入点: (100,200)\nAttributeReference: DOOR_NO=M-07\nAttributeReference: WIDTH=900", fillcolor="#dcfce7", style="filled,rounded", color="#16a34a"]
+
+    ref2 [label="BlockReference（块参照2）\n────────\n插入点: (300,200)\nAttributeReference: DOOR_NO=M-08\nAttributeReference: WIDTH=1000", fillcolor="#dcfce7", style="filled,rounded", color="#16a34a"]
+
+    def -> ref1 [label="实例化", style=dotted]
+    def -> ref2 [label="实例化", style=dotted]
+}

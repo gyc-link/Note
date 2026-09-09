@@ -1,0 +1,88 @@
+digraph AdjListStructure {
+    rankdir=LR
+    compound=true
+    nodesep=0.4
+    ranksep=0.6
+
+    // ===== Vertex Array =====
+    subgraph cluster_vertexArray {
+        label="顶点数组 VertexNode[] graph"
+        style=filled
+        fillcolor="#F0F4FF"
+        color="#4472C4"
+        penwidth=2
+
+        v0 [label="[0] v₁\nfirst →" shape=plaintext fontname="Consolas" fontsize=11]
+        v1 [label="[1] v₂\nfirst →" shape=plaintext fontname="Consolas" fontsize=11]
+        v2 [label="[2] v₃\nfirst →" shape=plaintext fontname="Consolas" fontsize=11]
+        v3 [label="[3] v₄\nfirst →" shape=plaintext fontname="Consolas" fontsize=11]
+    }
+
+    // ===== Edge Linked Lists =====
+    subgraph cluster_row0 {
+        label="v₁ 的邻接边链表"
+        style=filled
+        fillcolor="#FFF5F0"
+        color="#ED7D31"
+        penwidth=1.5
+
+        e02 [label="{v₂ | 3 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e04 [label="{v₄ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null0 [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        e02 -> e04 -> null0
+    }
+
+    subgraph cluster_row1 {
+        label="v₂ 的邻接边链表"
+        style=filled
+        fillcolor="#F0FFF0"
+        color="#70AD47"
+        penwidth=1.5
+
+        e13 [label="{v₃ | 1 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null1 [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        e13 -> null1
+    }
+
+    subgraph cluster_row2 {
+        label="v₃ 的邻接边链表"
+        style=filled
+        fillcolor="#FFF0F5"
+        color="#BF4B80"
+        penwidth=1.5
+
+        e21 [label="{v₁ | 2 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e24 [label="{v₄ | 4 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null2 [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        e21 -> e24 -> null2
+    }
+
+    subgraph cluster_row3 {
+        label="v₄ 的邻接边链表"
+        style=filled
+        fillcolor="#F5F5F5"
+        color="#808080"
+        penwidth=1.5
+
+        null3 [label="null (无边)" shape=plaintext fontname="Consolas" fontsize=9]
+    }
+
+    // ===== Connections: vertex first → first edge =====
+    v0 -> e02 [ltail=cluster_vertexArray lhead=cluster_row0 color="#ED7D31" penwidth=1.5]
+    v1 -> e13 [ltail=cluster_vertexArray lhead=cluster_row1 color="#70AD47" penwidth=1.5]
+    v2 -> e21 [ltail=cluster_vertexArray lhead=cluster_row2 color="#BF4B80" penwidth=1.5]
+    v3 -> null3 [ltail=cluster_vertexArray lhead=cluster_row3 color="#808080" penwidth=1.5 style=dashed]
+
+    // ===== Legend =====
+    subgraph cluster_legend {
+        label="节点结构"
+        style=filled
+        fillcolor="#FFFFF0"
+        color="#C0C0C0"
+
+        legend [label="{终点顶点 | 权值 | next指针}" shape=record fontname="Consolas" fontsize=9]
+    }
+}

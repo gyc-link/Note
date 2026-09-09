@@ -1,0 +1,73 @@
+digraph MemoryStructure {
+    // 基础设置
+    rankdir=LR;
+    nodesep=0.5;
+    ranksep=1.0;
+    compound=true;
+
+    // 全局节点与边样式定义
+    node [shape=rect, fontname="Microsoft YaHei, Arial", fontsize=12];
+    edge [fontname="Microsoft YaHei, Arial", fontsize=10, arrowsize=0.8];
+
+    # --- 栈区 (Stack) ---
+    subgraph cluster_stack {
+        label = "栈";
+        fontname = "Microsoft YaHei";
+        style = dashed;
+        color = gray40;
+
+        // 使用 HTML label 绘制连续的栈帧/变量槽
+        stack_table [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="8">
+                <TR><TD BGCOLOR="gray90" BORDER="0"><FONT COLOR="gray50">...</FONT></TD></TR>
+                <TR><TD PORT="oc">oc</TD></TR>
+                <TR><TD PORT="mc2">mc2</TD></TR>
+                <TR><TD PORT="mc1">mc1</TD></TR>
+                <TR><TD BGCOLOR="gray90" BORDER="0"><FONT COLOR="gray50">...</FONT></TD></TR>
+            </TABLE>
+        >, shape=plaintext];
+    }
+
+    # --- 堆区 (Heap) ---
+    subgraph cluster_heap {
+        label = "堆";
+        fontname = "Microsoft YaHei";
+        style = filled;
+        color = gray95;
+        bgcolor = gray95;
+
+        // 对象实例
+        obj_other [label="OtherClass", width=1.5, height=0.6];
+        obj_mc2   [label="MyClass", width=1.5, height=0.6];
+        obj_mc1   [label="MyClass", width=1.5, height=0.6];
+
+        // 类型元数据 (Type)
+        type_other [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="gray80"><B>Type</B></TD></TR>
+            <TR><TD ALIGN="LEFT">Name: OtherClass</TD></TR>
+            <TR><TD ALIGN="CENTER">...</TD></TR>
+        </TABLE>>, shape=plaintext];
+
+        type_myclass [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="gray80"><B>Type</B></TD></TR>
+            <TR><TD ALIGN="LEFT">Name: MyClass</TD></TR>
+            <TR><TD ALIGN="CENTER">...</TD></TR>
+        </TABLE>>, shape=plaintext];
+
+        // 内部排版对齐辅助（隐藏的边，用以保持上下结构）
+        obj_other -> type_other [style=invis];
+        obj_mc2 -> obj_mc1 [style=invis];
+        obj_mc1 -> type_myclass [style=invis];
+    }
+
+    # --- 引用指向关系 (Edges) ---
+    // 栈 → 堆（实线引用）
+    stack_table:oc:e  -> obj_other:w;
+    stack_table:mc2:e -> obj_mc2:w;
+    stack_table:mc1:e -> obj_mc1:w;
+
+    // 堆对象 → Type 元数据（虚线：两个 mc 实例共享同一个 Type）
+    obj_other -> type_other [style=dashed, color=gray40];
+    obj_mc1   -> type_myclass [style=dashed, color=gray40];
+    obj_mc2   -> type_myclass [style=dashed, color=gray40];
+}

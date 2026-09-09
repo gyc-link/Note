@@ -1,0 +1,82 @@
+digraph HeadInsert {
+    rankdir=LR
+    compound=true
+    nodesep=0.3
+    ranksep=0.5
+
+    // ==================== BEFORE ====================
+    subgraph cluster_before {
+        label="插入前：v₁ 的邻接链表已有 v₂"
+        style=filled
+        fillcolor="#FFF5F0"
+        color="#ED7D31"
+        penwidth=2
+
+        head_b [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        e2_b [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null_b [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        head_b -> e2_b:w
+        e2_b:e -> null_b:w
+    }
+
+    // ==================== STEP 1: Create edge ====================
+    subgraph cluster_step1 {
+        label="第1步：创建新边节点 newEdge(v₃, 3)"
+        style=filled
+        fillcolor="#FFFFF0"
+        color="#C0C0C0"
+        penwidth=1.5
+
+        newEdge [label="{v₃ | 3 | ?}" shape=record style=filled fillcolor="#FFFF99" fontname="Consolas" fontsize=10]
+        label_new [label="newEdge" shape=plaintext fontname="Consolas" fontsize=9 fontcolor="#808080"]
+        label_new -> newEdge [style=dotted color="#808080"]
+    }
+
+    // ==================== STEP 2: Link ====================
+    subgraph cluster_step2 {
+        label="第2步：newEdge.next = head.first"
+        style=filled
+        fillcolor="#F0FFF0"
+        color="#70AD47"
+        penwidth=2
+
+        head_s [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        newEdge_s [label="{v₃ | 3 | ●}" shape=record style=filled fillcolor="#FFFF99" fontname="Consolas" fontsize=10]
+        e2_s [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null_s [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        head_s -> e2_s:w
+        newEdge_s:e -> e2_s:w [color="#70AD47" penwidth=2 label="   ①" fontcolor="#70AD47"]
+        e2_s:e -> null_s:w
+    }
+
+    // ==================== STEP 3: Redirect head ====================
+    subgraph cluster_after {
+        label="第3步：head.first = newEdge  ✓ 完成"
+        style=filled
+        fillcolor="#F0F0FF"
+        color="#4472C4"
+        penwidth=2
+
+        head_a [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        newEdge_a [label="{v₃ | 3 | ●}" shape=record style=filled fillcolor="#FFFF99" fontname="Consolas" fontsize=10]
+        e2_a [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null_a [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        head_a -> newEdge_a:w [color="#4472C4" penwidth=2 label="   ②" fontcolor="#4472C4"]
+        newEdge_a:e -> e2_a:w [color="#70AD47" penwidth=2]
+        e2_a:e -> null_a:w
+    }
+
+    // ===== Code snippet at bottom =====
+    subgraph cluster_code {
+        label="对应代码"
+        style=filled
+        fillcolor="#F8F8F8"
+        color="#808080"
+
+        code [label="var edge = new EdgeNode(vj, val);\nvar head = graph[GetVertexIndex(vi)];\nedge.next = head.first;   // ①\nhead.first = edge;         // ②"
+              shape=plaintext fontname="Consolas" fontsize=10]
+    }
+}

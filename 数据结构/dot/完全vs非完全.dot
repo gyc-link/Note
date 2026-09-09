@@ -1,0 +1,23 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.6]
+
+    subgraph cluster_good {
+        label="完全 ✓"; style=dashed; color="#16a34a"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+        a1->{a2 a3}; a2->{a4 a5}; a3->a6
+    }
+    subgraph cluster_bad {
+        label="非完全 ✗ (空位在左边)"; style=dashed; color="#dc2626"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#fee2e2", color="#dc2626"]
+        b1->{b2 b3}
+        b2->{b4 b5}
+        b3->b_inv [style=invis]
+        b3->b7
+        b_inv [label="" style=invis width=0 height=0]
+        {rank=same; b_inv b7}
+    }
+}

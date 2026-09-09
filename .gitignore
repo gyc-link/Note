@@ -1,0 +1,17 @@
+# Node
+scripts/node_modules/
+scripts/browser-profile/
+scripts/processed.json
+
+# DOT 输出文件
+pic/dot-output/
+
+# 脚本
+scripts/
+
+# Obsidian 配置
+.obsidian/
+
+# 系统文件
+Thumbs.db
+Desktop.ini

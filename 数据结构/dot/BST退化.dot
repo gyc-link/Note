@@ -1,0 +1,13 @@
+digraph {
+    rankdir=TB
+    margin="0.5,0.5"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=13]
+    edge [arrowsize=0.6]
+
+    1 -> 2 -> 3
+
+    lab [label="退化成斜线\n查找 O(n)" shape=none, width=1.5, fixedsize=false, fontname="Microsoft YaHei", fontsize=12, fontcolor="#dc2626"]
+
+    3 -> lab [style=dotted arrowhead=none]
+}

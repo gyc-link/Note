@@ -1,0 +1,51 @@
+digraph HalfEdgeSplit {
+    rankdir=LR;
+    bgcolor=transparent;
+    fontname="Sans";
+    node [fontname="Sans", fontsize=12];
+    edge [fontname="Sans", fontsize=11];
+
+    subgraph cluster_geometric {
+        label="几何上的\"边\"(被两个面共享)";
+        fontsize=13;
+        bgcolor="#F5F5F5";
+        style="rounded,dashed";
+        color="#757575";
+
+        V0_g [label="V0", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+        V1_g [label="V1", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+        V0_g -> V1_g [dir=none, penwidth=3, color="#424242", label="一条几何边"];
+    }
+
+    // Arrow to split
+    arrow [label="拆成", shape=plaintext, fontsize=14, fontcolor="#FF6F00"];
+
+    subgraph cluster_halfedges {
+        label="两条半边 (Half-Edge)";
+        fontsize=13;
+        bgcolor="#FFF8E1";
+        style="rounded,dashed";
+        color="#FF8F00";
+
+        subgraph cluster_he0 {
+            label="属于面 F0 (绿)";
+            fontsize=11;
+            bgcolor="#E8F5E9";
+            V0_he [label="V0", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+            V1_he [label="V1", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+            V0_he -> V1_he [color="#2E7D32", penwidth=2.5, label="he0: V0→V1"];
+        }
+
+        subgraph cluster_he1 {
+            label="属于面 F1 (红)";
+            fontsize=11;
+            bgcolor="#FFEBEE";
+            V0_hp [label="V0", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+            V1_hp [label="V1", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.5];
+            V1_hp -> V0_hp [color="#C62828", penwidth=2.5, label="he1: V1→V0"];
+        }
+    }
+
+    // Pair connection
+    note_pair [label="he0.Pair = he1\nhe1.Pair = he0\n\nPair 属性让两条半边\n\"知道彼此的存在\"", shape=note, fontsize=11, fillcolor="#E1BEE7", style=filled];
+}

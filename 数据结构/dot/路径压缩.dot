@@ -1,0 +1,19 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=circle, width=0.35, height=0.35, fixedsize=true, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.6]
+
+    subgraph cluster_before {
+        label="Find(3) 前: 0→2→3"; style=dashed; color="#dc2626"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#fee2e2", color="#dc2626"]
+        b0; b2; b3
+        b0 -> b2 -> b3
+    }
+    subgraph cluster_after {
+        label="Find(3) 后"; style=dashed; color="#16a34a"; fontname="Microsoft YaHei"; fontsize=12
+        node [style=filled, fillcolor="#dcfce7", color="#16a34a"]
+        a0 -> {a1 a2 a3}
+    }
+}

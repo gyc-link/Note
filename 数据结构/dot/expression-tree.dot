@@ -1,0 +1,38 @@
+digraph ExpressionTree {
+    // 图的设置
+    rankdir=TB;
+    fontname="Noto Sans SC";
+    node [fontname="Noto Sans SC", fontsize=14, shape=circle, style=filled, fillcolor="#E8F0FE", penwidth=2];
+    edge [fontname="Noto Sans SC", fontsize=10];
+
+    // 节点定义
+    n_minus [label="-"];          // 根: 最外层减法
+    n_plus  [label="+"];          // 左子树: 加法
+    n_div   [label="/"];          // 右子树: 除法
+    a       [label="a", fillcolor="#FFF3CD"];
+    n_mul   [label="*"];          // 乘法
+    e       [label="e", fillcolor="#FFF3CD"];
+    f       [label="f", fillcolor="#FFF3CD"];
+    b       [label="b", fillcolor="#FFF3CD"];
+    n_sub   [label="-"];          // 括号内的减法
+    c       [label="c", fillcolor="#FFF3CD"];
+    d       [label="d", fillcolor="#FFF3CD"];
+
+    // 边: 构建树结构
+    // a + b*(c-d) - e/f
+    n_minus -> n_plus;
+    n_minus -> n_div;
+    n_plus  -> a;
+    n_plus  -> n_mul;
+    n_div   -> e;
+    n_div   -> f;
+    n_mul   -> b;
+    n_mul   -> n_sub;
+    n_sub   -> c;
+    n_sub   -> d;
+
+    // 标注运算符优先级
+    label = "算术表达式二叉树: a + b × (c - d) - e ÷ f";
+    labelloc = "t";
+    fontsize = 18;
+}

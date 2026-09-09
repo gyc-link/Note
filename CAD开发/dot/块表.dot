@@ -1,0 +1,22 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.8, fontname="Microsoft YaHei", fontsize=11]
+
+    db [label="Database（图形数据库）", fillcolor="#e8f0fe", style="filled,rounded", color="#2563eb"]
+    bt [label="BlockTable（块表）\n通过 db.BlockTableId 访问", fillcolor="#ede7f6", style="filled,rounded", color="#6d28d9"]
+
+    db -> bt [label="BlockTableId"]
+
+    bt -> ms [label="索引器 bt[\"*MODEL_SPACE\"]"]
+    bt -> ps [label="bt[\"*PAPER_SPACE\"]"]
+    bt -> ps0 [label="bt[\"*PAPER_SPACE0\"]"]
+    bt -> custom [label="bt[\"自定义块名\"]"]
+
+    ms [label="BlockTableRecord\n*MODEL_SPACE\n(模型空间)", fillcolor="#dcfce7", style="filled,rounded", color="#16a34a"]
+    ps [label="BlockTableRecord\n*PAPER_SPACE\n(布局1)", fillcolor="#fef3c7", style="filled,rounded", color="#d97706"]
+    ps0 [label="BlockTableRecord\n*PAPER_SPACE0\n(布局2)", fillcolor="#fef3c7", style="filled,rounded", color="#d97706"]
+    custom [label="BlockTableRecord\n自定义块", fillcolor="#e3f2fd", style="filled,rounded", color="#1565c0"]
+}

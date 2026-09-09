@@ -1,0 +1,43 @@
+digraph Tetrahedron {
+    bgcolor=transparent;
+    fontname="Sans";
+    node [fontname="Sans", fontsize=13];
+    edge [fontname="Sans", fontsize=10];
+    layout=neato;
+
+    // Four vertices in 3D-like layout
+    A [label="A (0,0,0)", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.6, pos="2,0!"];
+    B [label="B (1,0,0)", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.6, pos="4,2!"];
+    C [label="C (0,1,0)", shape=circle, style=filled, fillcolor="#BBDEFB", width=0.6, pos="0,2!"];
+    D [label="D (0,0,1)", shape=circle, style=filled, fillcolor="#FFCC80", width=0.6, pos="2,3.5!"];
+
+    // Face labels
+    F0 [label="Face0 (ABC)\n底", shape=plaintext, fontsize=11, fontcolor="#1B5E20", pos="2,0.3!"];
+    F1 [label="Face1 (BDA)\n右", shape=plaintext, fontsize=11, fontcolor="#B71C1C", pos="3.5,2!"];
+    F2 [label="Face2 (DCA)\n左", shape=plaintext, fontsize=11, fontcolor="#0D47A1", pos="0.8,2!"];
+    F3 [label="Face3 (BCD)\n背", shape=plaintext, fontsize=11, fontcolor="#E65100", pos="2.5,3.2!"];
+
+    // Edges with face colors
+    // Face0 (ABC): A→C, C→B, B→A
+    A -> C [color="#1B5E20", penwidth=2, label="f0_AC"];
+    C -> B [color="#1B5E20", penwidth=2, label="f0_CB"];
+    B -> A [color="#1B5E20", penwidth=2, label="f0_BA"];
+
+    // Face1 (BDA): B→D, D→A, A→B  — wait, that's B→D, D→A
+    B -> D [color="#B71C1C", penwidth=2, label="f1_BD"];
+    D -> A [color="#B71C1C", penwidth=2, label="f1_DA"];
+    // A→B is f1_AB which pairs with f0_BA
+
+    // Face2 (DCA): D→C, C→A, A→D
+    D -> C [color="#0D47A1", penwidth=2, label="f2_DC"];
+    C -> A [color="#0D47A1", penwidth=2, label="f2_CA"];
+    // A→D is f2_AD — but it overlaps with f1_DA
+
+    // Face3 (BCD): B→C, C→D, D→B
+    B -> C [color="#E65100", penwidth=2, label="f3_BC"];
+    C -> D [color="#E65100", penwidth=2, label="f3_CD"];
+    D -> B [color="#E65100", penwidth=2, label="f3_DB"];
+
+    // Note about Pairs
+    note [label="6条几何边 → 12条半边 → 6对Pair\n\nA↔C: f0_AC ⇄ f2_CA\nA↔B: f1_AB ⇄ f0_BA\nA↔D: f2_AD ⇄ f1_DA\nB↔C: f3_BC ⇄ f0_CB\nB↔D: f1_BD ⇄ f3_DB\nC↔D: f3_CD ⇄ f2_DC", shape=note, fillcolor="#FFF9C4", style=filled, fontsize=10, pos="4.5,0.3!"];
+}

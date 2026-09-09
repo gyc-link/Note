@@ -1,0 +1,18 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.8, fontname="Microsoft YaHei", fontsize=11]
+
+    working [label="工作区\n(Working Directory)\n你编辑文件的地方", fillcolor="#e8f0fe", style="filled,rounded", color="#2563eb"]
+    staging [label="暂存区\n(Staging Area / Index)\n准备提交的文件清单", fillcolor="#fef3c7", style="filled,rounded", color="#d97706"]
+    local [label="本地仓库\n(Repository)\n.git 目录，存所有历史", fillcolor="#d1fae5", style="filled,rounded", color="#059669"]
+    remote [label="远程仓库\n(Remote)\nGitHub / GitLab 等", fillcolor="#fee2e2", style="filled,rounded", color="#dc2626"]
+
+    working -> staging [label="git add"]
+    staging -> local [label="git commit"]
+    local -> remote [label="git push"]
+    remote -> local [label="git fetch"]
+    local -> working [label="git checkout / switch"]
+}

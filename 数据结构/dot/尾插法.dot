@@ -1,0 +1,80 @@
+digraph TailInsert {
+    rankdir=LR
+    compound=true
+    nodesep=0.3
+    ranksep=0.4
+
+    // ==================== BEFORE ====================
+    subgraph cluster_before {
+        label="插入前：v₁ 的邻接链表已有 v₂ → v₃"
+        style=filled
+        fillcolor="#FFF5F0"
+        color="#ED7D31"
+        penwidth=2
+
+        head_b [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        e2_b [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e3_b [label="{v₃ | 2 | ●}" shape=record fontname="Consolas" fontsize=10]
+        null_b [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        head_b -> e2_b:w
+        e2_b:e -> e3_b:w
+        e3_b:e -> null_b:w
+    }
+
+    // ==================== STEP 1: Create + find tail ====================
+    subgraph cluster_step1 {
+        label="第1步：创建新节点 + 遍历找尾节点 (tail.next == null)"
+        style=filled
+        fillcolor="#FFFFF0"
+        color="#C0C0C0"
+        penwidth=1.5
+
+        head_s [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        e2_s [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e3_s [label="{v₃ | 2 | ●}" shape=record style=filled fillcolor="#90EE90" fontname="Consolas" fontsize=10]
+        null_s [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+        newEdge_s [label="{v₄ | 7 | ?}" shape=record style=filled fillcolor="#FFFF99" fontname="Consolas" fontsize=10]
+
+        head_s -> e2_s:w
+        e2_s:e -> e3_s:w
+        e3_s:e -> null_s:w
+
+        label_tail [label="tail 停在这里" shape=plaintext fontname="Consolas" fontsize=9 fontcolor="#808080"]
+        label_tail -> e3_s [style=dotted color="#808080"]
+
+        label_new [label="newEdge" shape=plaintext fontname="Consolas" fontsize=9 fontcolor="#808080"]
+        label_new -> newEdge_s [style=dotted color="#808080"]
+    }
+
+    // ==================== STEP 2: Link ====================
+    subgraph cluster_after {
+        label="第2步：tail.next = newEdge  ✓ 完成"
+        style=filled
+        fillcolor="#F0F0FF"
+        color="#4472C4"
+        penwidth=2
+
+        head_a [label="head.first" shape=ellipse style=filled fillcolor="#FFDAB9" fontname="Consolas" fontsize=11]
+        e2_a [label="{v₂ | 5 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e3_a [label="{v₃ | 2 | ●}" shape=record fontname="Consolas" fontsize=10]
+        e4_a [label="{v₄ | 7 | ●}" shape=record style=filled fillcolor="#FFFF99" fontname="Consolas" fontsize=10]
+        null_a [label="null" shape=plaintext fontname="Consolas" fontsize=9]
+
+        head_a -> e2_a:w
+        e2_a:e -> e3_a:w
+        e3_a:e -> e4_a:w [color="#4472C4" penwidth=2 label="   tail.next\n   = newEdge" fontcolor="#4472C4"]
+        e4_a:e -> null_a:w
+    }
+
+    // ===== Code snippet at bottom =====
+    subgraph cluster_code {
+        label="头插法 vs 尾插法代码对比"
+        style=filled
+        fillcolor="#F8F8F8"
+        color="#808080"
+
+        code [label=" // 头插法 O(1)：\n edge.next = head.first;\n head.first = edge;\n\n // 尾插法 O(n)：需遍历找尾\n var tail = head.first;\n while (tail.next != null)\n     tail = tail.next;\n tail.next = edge;"
+              shape=plaintext fontname="Consolas" fontsize=10]
+    }
+}

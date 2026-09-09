@@ -1,0 +1,15 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=13]
+    edge [arrowsize=0.8, fontname="Microsoft YaHei", fontsize=11]
+
+    root [label="根", fillcolor="#dcfce7", style="filled,rounded", color="#16a34a"]
+    root -> s1 [label="子树1"]
+    root -> s2 [label="子树2"]
+    root -> s3 [label="子树3"]
+    s1 -> s1a; s1a -> s1b
+    s2 -> s2a
+    s3 -> s3a; s3a -> s3b
+}

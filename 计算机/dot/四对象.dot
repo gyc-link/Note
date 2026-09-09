@@ -1,0 +1,22 @@
+digraph {
+    rankdir=TB
+    margin="0.3,0.3"
+    bgcolor="#ffffff"
+    node [shape=box, style=rounded, fontname="Microsoft YaHei", fontsize=12]
+    edge [arrowsize=0.8, fontname="Microsoft YaHei", fontsize=11]
+
+    commit [label="commit（提交对象）\n指向一棵 tree\n记录作者、时间、父提交", fillcolor="#ede7f6", style="filled,rounded", color="#6d28d9"]
+    tree_root [label="tree（目录结构）\n存文件名和权限\n指向 blob 和 subtree", fillcolor="#e3f2fd", style="filled,rounded", color="#1565c0"]
+
+    commit -> tree_root
+
+    tree_root -> tree_sub [label="子目录"]
+    tree_root -> blob_a [label="文件A"]
+    tree_root -> blob_b [label="文件B"]
+    tree_sub -> blob_c [label="文件C"]
+
+    blob_a [label="blob（文件内容）\n文件A的原始数据", shape=ellipse, fillcolor="#fff3e0", style=filled, color="#e65100"]
+    blob_b [label="blob（文件内容）\n文件B的原始数据", shape=ellipse, fillcolor="#fff3e0", style=filled, color="#e65100"]
+    blob_c [label="blob（文件内容）\n文件C的原始数据", shape=ellipse, fillcolor="#fff3e0", style=filled, color="#e65100"]
+    tree_sub [label="tree（子目录）", shape=box, fillcolor="#e8eaf6", style="filled,rounded", color="#283593"]
+}
