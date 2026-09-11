@@ -234,9 +234,67 @@ var result = from p in persons
 
 > 如果需要把匿名类型的数据传出方法，要么用 `object` + 反射（不推荐），要么老老实实写一个具名类 / record。
 
+## 9. 补充：类型筛选、索引与滑动窗口
+
+### Cast vs OfType
+
+| 方法 | 态度 | 遇到转不过去的元素 |
+| --- | --- | --- |
+| `Cast<T>()` | 信任 | 抛异常 |
+| `OfType<T>()` | 尝试 | 静默跳过 |
+
+> 记忆点：**cast 是信任，oftype 是尝试**。
+
+### Select 的索引重载
+
+`Select` 有一个重载，lambda 可以收两个参数：第一个是当前元素，第二个是它在集合里的索引。
+
+```csharp
+items.Select((item, index) => $"{index}: {item.Name}");
+```
+
+### 排序：传比较委托
+
+`List<T>.Sort` 接受一个返回 `int` 的比较委托，两个参数就是 list 里的两个元素：
+
+```csharp
+result.Sort((a, b) => a[0].CompareTo(b[0]));
+```
+
+返回负数 / 0 / 正数，分别表示 a 排前 / 两者相等 / a 排后。
+
+### Zip + Skip：滑动窗口
+
+```csharp
+var pairs = valuesToPair.Zip(
+        valuesToPair.Skip(1), (a, b) => new double[] { a, b })
+    .ToList();
+```
+
+- `Zip` 把两个序列按位置合并，每个位置合并成一个 `[a, b]`
+- `Skip(1)` 得到"错位一格"的新序列
+- 两者一配，就成了**相邻两两成对**——滑动窗口形式的分组
+- 多出来的元素会被 `Zip` 忽略（以短的那个为准）
+
+### SelectMany：扁平化
+
+把嵌套的"集合的集合"摊平成一维，同时支持在一对多关系里做投影转换。比如一个"字典的集合"，`SelectMany` 之后就是每个字典的所有 pair 组成的一维集合。
+
 ### 闪卡
 
 #csharp-flashcards
+
+`Cast<T>` 和 `OfType<T>` 的区别::`Cast` 是**信任**（转不了就抛异常），`OfType` 是**尝试**（转不了就跳过）。
+
+```csharp
+var pairs = valuesToPair.Zip
+		(valuesToPair.Skip(1), (a, b) => new double[] { a, b }).
+		ToList();
+```
+ZIP是什么操作？这么写是为了做什么？
+?
+`Zip` 把两个序列按位置合并成对；配合 `Skip(1)`，就是把序列错位一格再和自己配对，结果是**相邻两两成对的滑动窗口**。多出来的元素被忽略。
+<!--SR:!2026-09-15,6,190-->
 
 LINQ的foreach，==对逐个元素进行操作==。
 <!--SR:!2026-10-01,110,296-->

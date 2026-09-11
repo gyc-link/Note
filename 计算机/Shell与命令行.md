@@ -35,6 +35,18 @@ sr-ease: 250
 - **PowerShell**：微软 2006 年认识到 CMD 不够用。核心创新——**管道传的是对象而不是文本**。`Get-Process | Where CPU > 100` 不需要做字符串解析，因为管道里流的直接是进程对象，`CPU` 是它的属性。
 - **WSL2**：2019 年微软放弃"模拟 Linux"，直接塞了一个真 Linux 内核跑在 Hyper-V 虚拟机里。`wsl --install` 一键装好。
 
+### CMD 常用命令
+
+| 命令 | 作用 |
+| --- | --- |
+| `mklink /D 链接名 目标路径` | 创建**目录符号链接**（`/D` 表示目录，不加则是文件链接） |
+| `mklink /H` | 创建硬链接 |
+| `mklink /J` | 创建目录联接（junction） |
+
+> `mklink` 是 CMD 内建命令，PowerShell 里不能直接敲，要写 `cmd /c mklink ...`。
+
+![](../pic/Pasted%20image%2020260613105201.png)
+
 ## PowerShell 执行策略
 
 执行优先级

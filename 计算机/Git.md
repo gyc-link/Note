@@ -229,6 +229,17 @@ git <子命令> [选项] [参数]
 - 选项：`--local`、`--list`、`--show-origin`...
 - 参数：`user.name`、分支名...
 
+### 交互式变基 `git rebase -i`
+
+```bash
+git rebase -i HEAD~4
+```
+
+- `HEAD~4`：从当前分支最新提交向上回溯 4 代父提交
+- `-i` = `--interactive`：交互式编辑，手动编辑提交清单
+
+弹出的编辑器里可以调整提交顺序、合并（squash）、改写提交信息、删除提交。配合 [[../程序员职业素养/GIT规范]] 里的提交信息规范一起用。
+
 ### 配置用户信息
 
 ```bash
@@ -287,4 +298,12 @@ Git存的是==1;;每次提交时项目的完整状态==，如果文件没变，�
 - 配置了Path环境变量
 - git全局命令不需要依赖当前文件夹，但是git仓库命令需要有.git目录
 <!--SR:!2026-10-12,33,250-->
+
+本地的远端跟踪分支，在本地表示着一个远端分支
+remote-tracking branch which locally represents a remote branch
+local remote-tracking branch
+branch on remote
+?
+本地的远端跟踪分支，是记录远端分支的一个本地镜像，不是本地分支。
+<!--SR:!2026-09-16,14,210-->
 
